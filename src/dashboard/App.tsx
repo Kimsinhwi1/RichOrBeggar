@@ -13,24 +13,43 @@ const won = (n: number) => n.toLocaleString('ko-KR') + '원';
 export function App() {
   const [items, setItems] = useState<OrderItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  const load = () => {
+    setLoading(true);
+    setError(null);
     getAllOrders()
-      .then(setItems)
+      .then((rows) => {
+        console.debug('[대시보드] 로드된 주문상품:', rows.length);
+        setItems(rows);
+      })
+      .catch((err) => {
+        console.error('[대시보드] 불러오기 실패:', err);
+        setError(String(err));
+      })
       .finally(() => setLoading(false));
-  }, []);
+  };
+
+  useEffect(load, []);
 
   const summaries: OrderSummary[] = summarizeByOrder(items);
 
   return (
     <main style={{ padding: 24, fontFamily: 'system-ui, sans-serif', maxWidth: 960, margin: '0 auto' }}>
-      <h1 style={{ fontSize: 22 }}>쿠팡 가계부 대시보드</h1>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <h1 style={{ fontSize: 22, flex: 1 }}>쿠팡 가계부 대시보드</h1>
+        <button onClick={load} style={{ padding: '6px 12px', borderRadius: 6, border: '1px solid #ccc', background: '#fff', cursor: 'pointer' }}>
+          새로고침
+        </button>
+      </div>
 
-      {loading ? (
+      {error ? (
+        <p style={{ color: '#c0392b' }}>불러오기 오류: {error}</p>
+      ) : loading ? (
         <p style={{ color: '#555' }}>불러오는 중…</p>
       ) : items.length === 0 ? (
         <p style={{ color: '#555' }}>
-          아직 수집된 내역이 없습니다. 쿠팡 주문목록 페이지에서 "내역 가져오기" 버튼을 눌러주세요.
+          아직 수집된 내역이 없습니다. 쿠팡 주문목록 페이지에서 "내역 가져오기" 버튼을 누른 뒤 새로고침하세요.
         </p>
       ) : (
         <>
