@@ -22,17 +22,18 @@ export default defineManifest({
   },
   content_scripts: [
     {
-      matches: ['https://mc.coupang.com/*', 'https://www.coupang.com/*'],
+      matches: ['https://mc.coupang.com/*'],
       js: ['src/content/content.ts'],
       run_at: 'document_idle',
     },
   ],
-  permissions: ['storage', 'alarms'],
-  host_permissions: ['https://mc.coupang.com/*', 'https://www.coupang.com/*'],
+  // 권한 최소화(DESIGN 8장): 실제 사용하는 것만. alarms는 Phase 3(자동 수집) 도입 시 추가.
+  permissions: ['storage'],
+  host_permissions: ['https://mc.coupang.com/*'],
   web_accessible_resources: [
     {
       resources: ['src/dashboard/index.html', 'selectors.json'],
-      matches: ['https://*.coupang.com/*'],
+      matches: ['https://mc.coupang.com/*'],
     },
   ],
 });
