@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1280px; height: 800px; font-family: 'Malgun Gothic', system-ui, sans-serif; }
+  body { background: linear-gradient(135deg, #ecf7ef 0%, #ffffff 55%); padding: 56px 64px; color: #1a1a1a; }
+  .head { margin-bottom: 24px; }
+  .badge { display: inline-block; background: #1f8a3b; color: #fff; font-size: 15px; font-weight: 700; padding: 6px 14px; border-radius: 999px; margin-bottom: 16px; }
+  h1 { font-size: 44px; font-weight: 800; letter-spacing: -1px; }
+  h1 span { color: #1f8a3b; }
+  .sub { font-size: 19px; color: #666; margin-top: 10px; }
+  .window { background: #fff; border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.12); overflow: hidden; border: 1px solid #eee; }
+  .bar { height: 40px; background: #217346; display: flex; align-items: center; padding: 0 16px; gap: 10px; }
+  .xl { color: #fff; font-size: 14px; font-weight: 700; }
+  .fname { margin-left: auto; color: #d9 efe2; color: #cfe9d9; font-size: 13px; }
+  .grid { width: 100%; border-collapse: collapse; font-size: 15px; }
+  .grid th { background: #f2f8f4; color: #444; font-weight: 700; padding: 11px 12px; border: 1px solid #e3ede7; text-align: left; }
+  .grid td { padding: 10px 12px; border: 1px solid #eef2f0; color: #333; }
+  .grid .rownum { background: #f7f7f7; color: #aaa; text-align: center; width: 42px; font-size: 13px; }
+  .grid td.r { text-align: right; }
+</style>
+</head>
+<body>
+  <div class="head">
+    <div class="badge">엑셀 · CSV</div>
+    <h1>그대로 <span>엑셀에서</span> 열리는 지출표</h1>
+    <div class="sub">날짜 · 주문번호 · 상품명 · 수량 · 금액 · 상태 — 한글 깨짐 없이 바로 사용</div>
+  </div>
+  <div class="window">
+    <div class="bar"><span class="xl">＋ Excel</span><span class="fname">coupang-orders.csv</span></div>
+    <table class="grid">
+      <thead><tr><th class="rownum"></th><th>날짜</th><th>주문번호</th><th>상품명</th><th>수량</th><th>금액</th><th>상태</th></tr></thead>
+      <tbody>
+        <tr><td class="rownum">1</td><td>2026-06-28</td><td>2102305100</td><td>삼다수 2L 12병</td><td>1</td><td class="r">10,900</td><td>배송완료</td></tr>
+        <tr><td class="rownum">2</td><td>2026-06-28</td><td>2102305100</td><td>종이컵 500개입</td><td>1</td><td class="r">7,900</td><td>배송완료</td></tr>
+        <tr><td class="rownum">3</td><td>2026-06-28</td><td>2102305100</td><td>주방세제 리필 2개</td><td>2</td><td class="r">12,800</td><td>배송완료</td></tr>
+        <tr><td class="rownum">4</td><td>2026-06-28</td><td>2102305100</td><td>물티슈 10팩</td><td>1</td><td class="r">16,700</td><td>배송완료</td></tr>
+        <tr><td class="rownum">5</td><td>2026-06-21</td><td>2102241700</td><td>무선 마우스</td><td>1</td><td class="r">15,500</td><td>배송완료</td></tr>
+        <tr><td class="rownum">6</td><td>2026-06-21</td><td>2102241700</td><td>AA 건전지 20개</td><td>1</td><td class="r">12,400</td><td>배송완료</td></tr>
+        <tr><td class="rownum">7</td><td>2026-06-14</td><td>2102188000</td><td>면 반팔티</td><td>2</td><td class="r">18,900</td><td>주문취소</td></tr>
+        <tr><td class="rownum">8</td><td>2026-06-05</td><td>2101944200</td><td>핸드워시 대용량 3개</td><td>1</td><td class="r">21,300</td><td>배송완료</td></tr>
+        <tr><td class="rownum">9</td><td>2026-06-05</td><td>2101944200</td><td>고무장갑 3개입</td><td>1</td><td class="r">8,640</td><td>배송완료</td></tr>
+        <tr><td class="rownum">10</td><td>2026-05-27</td><td>2101557000</td><td>커피믹스 100개</td><td>1</td><td class="r">18,200</td><td>배송완료</td></tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

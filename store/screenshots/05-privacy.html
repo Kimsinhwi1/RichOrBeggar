@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1280px; height: 800px; font-family: 'Malgun Gothic', system-ui, sans-serif; }
+  body { background: linear-gradient(135deg, #1a1f2b 0%, #2a3242 100%); padding: 70px 64px; color: #fff; display: flex; flex-direction: column; }
+  .badge { display: inline-block; align-self: flex-start; background: rgba(255,255,255,0.14); color: #fff; font-size: 15px; font-weight: 700; padding: 6px 14px; border-radius: 999px; margin-bottom: 20px; }
+  h1 { font-size: 50px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.2; }
+  h1 span { color: #ff7a3d; }
+  .sub { font-size: 20px; color: #b9c1cf; margin-top: 16px; }
+  .cards { display: flex; gap: 22px; margin-top: 56px; }
+  .card { flex: 1; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; padding: 30px 26px; }
+  .ic { width: 54px; height: 54px; border-radius: 14px; background: #ff5000; display: flex; align-items: center; justify-content: center; font-size: 28px; margin-bottom: 18px; }
+  .ct { font-size: 21px; font-weight: 800; margin-bottom: 8px; }
+  .cd { font-size: 16px; color: #b9c1cf; line-height: 1.5; }
+</style>
+</head>
+<body>
+  <div class="badge">개인정보 우선</div>
+  <h1>내 지출은 <span>내 브라우저에만</span>.<br>서버로 보내지 않습니다.</h1>
+  <div class="sub">회원가입도, 데이터 수집도 없습니다. 쿠팡 계정엔 아무것도 쓰지 않는 읽기 전용.</div>
+  <div class="cards">
+    <div class="card"><div class="ic">🔒</div><div class="ct">서버 전송 없음</div><div class="cd">주문 데이터는 오직 내 컴퓨터(로컬)에만 저장됩니다.</div></div>
+    <div class="card"><div class="ic">👁️</div><div class="ct">읽기 전용</div><div class="cd">주문/취소 등 어떤 쓰기 동작도 하지 않아 계정이 안전합니다.</div></div>
+    <div class="card"><div class="ic">🧾</div><div class="ct">가입 불필요</div><div class="cd">별도 회원가입 없이 설치 즉시 바로 사용합니다.</div></div>
+  </div>
+</body>
+</html>

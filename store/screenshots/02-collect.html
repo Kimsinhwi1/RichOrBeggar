@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1280px; height: 800px; font-family: 'Malgun Gothic', system-ui, sans-serif; }
+  body { background: linear-gradient(135deg, #fff3ec 0%, #ffffff 55%); padding: 56px 64px; color: #1a1a1a; }
+  .head { margin-bottom: 24px; }
+  .badge { display: inline-block; background: #ff5000; color: #fff; font-size: 15px; font-weight: 700; padding: 6px 14px; border-radius: 999px; margin-bottom: 16px; }
+  h1 { font-size: 44px; font-weight: 800; letter-spacing: -1px; }
+  h1 span { color: #ff5000; }
+  .sub { font-size: 19px; color: #666; margin-top: 10px; }
+  .window { position: relative; background: #fff; border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.12); overflow: hidden; border: 1px solid #eee; height: 470px; }
+  .bar { height: 40px; background: #f5f5f7; display: flex; align-items: center; padding: 0 16px; gap: 8px; border-bottom: 1px solid #ececec; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .url { margin-left: 14px; background: #fff; border: 1px solid #e2e2e2; border-radius: 8px; font-size: 13px; color: #888; padding: 5px 14px; width: 460px; }
+  .body { padding: 22px 26px; }
+  .ptitle { font-size: 18px; font-weight: 800; color: #333; margin-bottom: 16px; }
+  .order { border: 1px solid #eee; border-radius: 12px; padding: 14px 18px; margin-bottom: 12px; display: flex; align-items: center; gap: 16px; }
+  .thumb { width: 52px; height: 52px; border-radius: 8px; background: #f0f0f0; flex: none; }
+  .oinfo { flex: 1; }
+  .oinfo .d { font-size: 13px; color: #999; }
+  .oinfo .n { font-size: 15px; font-weight: 600; margin-top: 3px; color: #333; }
+  .oinfo .p { font-size: 14px; color: #ff5000; font-weight: 700; margin-top: 3px; }
+  .st { font-size: 13px; color: #1f8a3b; }
+  .cbtn { position: absolute; right: 26px; bottom: 24px; background: #ff5000; color: #fff; font-weight: 800; font-size: 16px; border: none; border-radius: 10px; padding: 15px 22px; box-shadow: 0 6px 18px rgba(255,80,0,0.4); }
+  .toast { position: absolute; right: 26px; bottom: 84px; background: #1f8a3b; color: #fff; font-size: 15px; font-weight: 600; border-radius: 10px; padding: 13px 18px; box-shadow: 0 6px 18px rgba(0,0,0,0.2); }
+</style>
+</head>
+<body>
+  <div class="head">
+    <div class="badge">STEP 1</div>
+    <h1>주문목록에서 <span>버튼 하나</span>로 추출</h1>
+    <div class="sub">여러 페이지도 자동으로 순회하며 전체 내역을 한 번에 수집</div>
+  </div>
+  <div class="window">
+    <div class="bar">
+      <span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span>
+      <span class="url">mc.coupang.com/ssr/desktop/order/list</span>
+    </div>
+    <div class="body">
+      <div class="ptitle">주문목록 / 배송조회</div>
+      <div class="order"><div class="thumb"></div><div class="oinfo"><div class="d">2026.06.28 주문</div><div class="n">삼다수 2L 12병 외 3건</div><div class="p">48,300원</div></div><div class="st">배송완료</div></div>
+      <div class="order"><div class="thumb"></div><div class="oinfo"><div class="d">2026.06.21 주문</div><div class="n">종이컵 500개입 외 1건</div><div class="p">27,900원</div></div><div class="st">배송완료</div></div>
+      <div class="order"><div class="thumb"></div><div class="oinfo"><div class="d">2026.06.14 주문</div><div class="n">무선 마우스</div><div class="p">15,500원</div></div><div class="st">배송완료</div></div>
+    </div>
+    <div class="toast">43건 수집 완료 · 누적 43건</div>
+    <button class="cbtn">쿠팡 가계부: 내역 가져오기</button>
+  </div>
+</body>
+</html>

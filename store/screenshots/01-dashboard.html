@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1280px; height: 800px; font-family: 'Malgun Gothic', system-ui, sans-serif; }
+  body { background: linear-gradient(135deg, #fff3ec 0%, #ffffff 55%); padding: 56px 64px; color: #1a1a1a; }
+  .head { margin-bottom: 28px; }
+  .badge { display: inline-block; background: #ff5000; color: #fff; font-size: 15px; font-weight: 700; padding: 6px 14px; border-radius: 999px; margin-bottom: 16px; }
+  h1 { font-size: 44px; font-weight: 800; letter-spacing: -1px; }
+  h1 span { color: #ff5000; }
+  .sub { font-size: 19px; color: #666; margin-top: 10px; }
+  .window { background: #fff; border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.12); overflow: hidden; border: 1px solid #eee; }
+  .bar { height: 40px; background: #f5f5f7; display: flex; align-items: center; padding: 0 16px; gap: 8px; border-bottom: 1px solid #ececec; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .body { padding: 26px 30px; }
+  .title { font-size: 20px; font-weight: 800; margin-bottom: 18px; }
+  .stats { display: flex; gap: 20px; align-items: center; margin-bottom: 20px; }
+  .stat { background: #fafafa; border: 1px solid #eee; border-radius: 12px; padding: 14px 22px; }
+  .stat .l { font-size: 13px; color: #999; }
+  .stat .v { font-size: 26px; font-weight: 800; margin-top: 2px; }
+  .stat.total .v { color: #ff5000; }
+  .csv { margin-left: auto; background: #ff5000; color: #fff; font-weight: 800; font-size: 15px; border: none; border-radius: 10px; padding: 14px 22px; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th { text-align: left; color: #888; font-weight: 700; padding: 10px 8px; border-bottom: 2px solid #eee; }
+  td { padding: 11px 8px; border-bottom: 1px solid #f3f3f3; }
+  td.r, th.r { text-align: right; }
+  .mono { font-family: 'Consolas', monospace; color: #555; }
+  .tag { font-size: 13px; padding: 3px 9px; border-radius: 6px; background: #eef7ee; color: #1f8a3b; }
+  .tag.c { background: #fdecec; color: #c0392b; }
+</style>
+</head>
+<body>
+  <div class="head">
+    <div class="badge">쿠팡 가계부</div>
+    <h1>쿠팡 지출, <span>클릭 한 번</span>으로 정리</h1>
+    <div class="sub">주문내역 자동 추출 · 월별 지출 분석 · 서버 전송 없이 내 브라우저에만 저장</div>
+  </div>
+  <div class="window">
+    <div class="bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span></div>
+    <div class="body">
+      <div class="title">쿠팡 가계부 대시보드</div>
+      <div class="stats">
+        <div class="stat"><div class="l">주문 수</div><div class="v">18건</div></div>
+        <div class="stat"><div class="l">상품 수</div><div class="v">32건</div></div>
+        <div class="stat total"><div class="l">총 지출</div><div class="v">1,284,600원</div></div>
+        <button class="csv">CSV 다운로드</button>
+      </div>
+      <table>
+        <thead><tr><th>주문일</th><th>주문번호</th><th>상품 수</th><th class="r">합산 금액</th><th>상태</th></tr></thead>
+        <tbody>
+          <tr><td>2026-06-28</td><td class="mono">21023051xxxx</td><td>4</td><td class="r">48,300원</td><td><span class="tag">배송완료</span></td></tr>
+          <tr><td>2026-06-21</td><td class="mono">21022417xxxx</td><td>2</td><td class="r">27,900원</td><td><span class="tag">배송완료</span></td></tr>
+          <tr><td>2026-06-14</td><td class="mono">21021880xxxx</td><td>1</td><td class="r">15,500원</td><td><span class="tag c">주문취소</span></td></tr>
+          <tr><td>2026-06-05</td><td class="mono">21019442xxxx</td><td>3</td><td class="r">62,100원</td><td><span class="tag">배송완료</span></td></tr>
+          <tr><td>2026-05-27</td><td class="mono">21015570xxxx</td><td>2</td><td class="r">33,800원</td><td><span class="tag">배송완료</span></td></tr>
+          <tr><td>2026-05-19</td><td class="mono">21012290xxxx</td><td>5</td><td class="r">91,250원</td><td><span class="tag">배송완료</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
