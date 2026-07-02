@@ -11,6 +11,12 @@ export interface ParseError {
   message: string;
 }
 
+export interface PageInfo {
+  hasNext: boolean;
+  /** 다음 페이지 인덱스 (없으면 null) */
+  nextPageIndex: number | null;
+}
+
 export interface ParseResult {
   items: OrderItem[];
   /** 시도한 상품 수 */
@@ -20,6 +26,8 @@ export interface ParseResult {
   failureRate: number;
   /** DESIGN 4.4.3: 실패율 임계 초과 또는 데이터 부재 → 중단(시나리오 C) */
   aborted: boolean;
+  /** 페이지네이션 순회용 (DESIGN 3.1) */
+  pageInfo: PageInfo;
   errors: ParseError[];
 }
 
@@ -30,8 +38,17 @@ export interface ParseOptions {
   abortThreshold?: number;
 }
 
+const NO_PAGE: PageInfo = { hasNext: false, nextPageIndex: null };
+
 function aborted(message: string): ParseResult {
-  return { items: [], totalAttempted: 0, failedCount: 0, failureRate: 1, aborted: true, errors: [{ orderIndex: -1, message }] };
+  return { items: [], totalAttempted: 0, failedCount: 0, failureRate: 1, aborted: true, pageInfo: NO_PAGE, errors: [{ orderIndex: -1, message }] };
+}
+
+function readPageInfo(json: unknown, cfg: ExtractConfig): PageInfo {
+  return {
+    hasNext: getByPath(json, cfg.pagination.hasNext) === true,
+    nextPageIndex: toNumber(getByPath(json, cfg.pagination.nextPageIndex)),
+  };
 }
 
 /** HTML에서 config.scriptId script의 JSON을 추출·파싱. 실패 시 null. */
@@ -133,5 +150,13 @@ export function parseOrders(html: string, cfg: ExtractConfig, options: ParseOpti
   });
 
   const failureRate = totalAttempted === 0 ? 1 : failedCount / totalAttempted;
-  return { items, totalAttempted, failedCount, failureRate, aborted: totalAttempted === 0 || failureRate > threshold, errors };
+  return {
+    items,
+    totalAttempted,
+    failedCount,
+    failureRate,
+    aborted: totalAttempted === 0 || failureRate > threshold,
+    pageInfo: readPageInfo(json, cfg),
+    errors,
+  };
 }

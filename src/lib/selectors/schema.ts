@@ -28,6 +28,13 @@ export interface ProductPaths {
   allCanceled: string;
 }
 
+export interface PaginationPaths {
+  /** 다음 페이지 존재 여부 (JSON 루트 기준 절대 dot-path) */
+  hasNext: string;
+  /** 다음 페이지 인덱스 (JSON 루트 기준 절대 dot-path) */
+  nextPageIndex: string;
+}
+
 export interface ExtractConfig {
   version: number;
   updatedAt: string;
@@ -40,6 +47,7 @@ export interface ExtractConfig {
   order: OrderPaths;
   deliveryGroup: DeliveryGroupPaths;
   product: ProductPaths;
+  pagination: PaginationPaths;
   /** 상태 코드 → 한국어 라벨 (원격 보정 가능) */
   statusLabels: Record<string, string>;
   /** 취소 상태 라벨 */

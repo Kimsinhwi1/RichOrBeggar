@@ -23,8 +23,9 @@ function product(over: Record<string, unknown>) {
   };
 }
 
-function nextData(orderList: unknown[]) {
-  return { props: { pageProps: { domains: { desktopOrder: { orderList } } } } };
+function nextData(orderList: unknown[], pagination?: { hasNext: boolean; nextPageIndex: number }) {
+  const orderPagination = pagination ?? { hasNext: false, nextPageIndex: 0 };
+  return { props: { pageProps: { domains: { desktopOrder: { orderList, orderPagination } } } } };
 }
 
 /** 정상 2주문/3상품: 할인가·취소주문·상태 라벨 검증용. */
@@ -55,7 +56,7 @@ export const SAMPLE_HTML = wrapNextData(
         },
       ],
     },
-  ]),
+  ], { hasNext: true, nextPageIndex: 1 }),
 );
 
 /** 3상품 중 2개가 필수 필드 누락 → 실패율 66% (임계 30% 초과 → 중단). */

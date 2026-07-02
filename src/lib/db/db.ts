@@ -24,3 +24,13 @@ export async function saveOrders(items: OrderItem[]): Promise<number> {
   await db.orders.bulkPut(items);
   return items.length;
 }
+
+/** 저장된 전체 주문상품 (최신 주문일 우선). */
+export async function getAllOrders(): Promise<OrderItem[]> {
+  const items = await db.orders.toArray();
+  return items.sort((a, b) => b.orderedAt.localeCompare(a.orderedAt));
+}
+
+export async function countOrders(): Promise<number> {
+  return db.orders.count();
+}

@@ -62,6 +62,10 @@ describe('parseOrders — 정상 경로', () => {
     expect(roll.status).toBe('주문취소');
     expect(roll.orderedAt).toBe('2026-06-24');
   });
+
+  it('페이지 정보(hasNext/nextPageIndex)를 추출', () => {
+    expect(result.pageInfo).toEqual({ hasNext: true, nextPageIndex: 1 });
+  });
 });
 
 describe('parseOrders — 실패율 임계 (DESIGN 4.4.3)', () => {

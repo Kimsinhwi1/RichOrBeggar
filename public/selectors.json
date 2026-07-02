@@ -23,6 +23,10 @@
     "discountedUnitPrice": "discountedUnitPrice",
     "allCanceled": "allCanceled"
   },
+  "pagination": {
+    "hasNext": "props.pageProps.domains.desktopOrder.orderPagination.hasNext",
+    "nextPageIndex": "props.pageProps.domains.desktopOrder.orderPagination.nextPageIndex"
+  },
   "statusLabels": {
     "INSTRUCT": "상품준비중",
     "DEPARTURE": "배송출발",

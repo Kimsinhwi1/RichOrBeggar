@@ -1,11 +1,12 @@
-// DESIGN 4.2: service worker — IndexedDB 저장, 원격 셀렉터 갱신, (Pro) 주기 수집 알람.
-// Phase 0에서는 뼈대 + 셀렉터 갱신 훅만.
+// DESIGN 4.2: service worker — IndexedDB 저장, 원격 셀렉터 갱신.
+// Phase 1: content script가 보낸 파싱 결과를 Dexie에 저장.
 
 import { getExtractConfig } from '../lib/selectors/loadSelectors';
+import { saveOrders, countOrders } from '../lib/db/db';
+import type { RequestMsg, SaveOrdersResult } from '../lib/messaging/types';
 
 chrome.runtime.onInstalled.addListener(async () => {
   console.info('[쿠팡 가계부] 설치/업데이트됨');
-  // 최초 설치 시 셀렉터 캐시 워밍 (실패해도 조용히 폴백)
   try {
     const config = await getExtractConfig();
     console.info('[쿠팡 가계부] 셀렉터 버전:', config.version, 'verified:', config.verified);
@@ -14,6 +15,24 @@ chrome.runtime.onInstalled.addListener(async () => {
   }
 });
 
-// TODO(Phase 1): content script로부터 파싱 결과 수신 → saveOrders()
+async function handleSave(items: RequestMsg['items']): Promise<SaveOrdersResult> {
+  const saved = await saveOrders(items);
+  const total = await countOrders();
+  await chrome.storage.local.set({ lastCollectedAt: new Date().toISOString(), lastSaved: saved });
+  return { saved, total };
+}
+
+chrome.runtime.onMessage.addListener((msg: RequestMsg, _sender, sendResponse) => {
+  if (msg.type === 'SAVE_ORDERS') {
+    handleSave(msg.items)
+      .then(sendResponse)
+      .catch((err) => {
+        console.error('[쿠팡 가계부] 저장 실패:', err);
+        sendResponse({ saved: 0, total: -1 });
+      });
+    return true; // 비동기 응답
+  }
+  return false;
+});
+
 // TODO(Phase 3): chrome.alarms로 주 1회 백그라운드 수집
-export {};
