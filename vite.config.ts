@@ -11,6 +11,13 @@ export default defineConfig({
     alias: { '@': resolve(__dirname, 'src') },
   },
   plugins: [react(), crx({ manifest })],
+  build: {
+    rollupOptions: {
+      // 대시보드는 web_accessible_resources로만 참조돼 crxjs가 script 태그를
+      // 자동 변환하지 않는다. Vite 진입점으로 명시해 빌드 시 변환·번들되게 한다.
+      input: { dashboard: resolve(__dirname, 'src/dashboard/index.html') },
+    },
+  },
   test: {
     environment: 'jsdom',
     include: ['src/**/*.test.ts'],
