@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "updatedAt": "2026-07-02",
+  "verified": true,
+  "_note": "쿠팡 Next.js __NEXT_DATA__ JSON 기반 추출 설정. Phase 0에서 실제 주문목록 페이지로 검증(주문 5건/상품 13건). 쿠팡 구조 변경 시 이 JSON만 원격 갱신하면 복구.",
+  "scriptId": "__NEXT_DATA__",
+  "orderListPath": "props.pageProps.domains.desktopOrder.orderList",
+  "order": {
+    "orderId": "orderId",
+    "orderedAt": "orderedAt",
+    "allCanceled": "allCanceled",
+    "deliveryGroupList": "deliveryGroupList"
+  },
+  "deliveryGroup": {
+    "status": "groupStatus.status",
+    "productList": "productList"
+  },
+  "product": {
+    "productId": "productId",
+    "productName": "productName",
+    "quantity": "quantity",
+    "unitPrice": "unitPrice",
+    "discountedUnitPrice": "discountedUnitPrice",
+    "allCanceled": "allCanceled"
+  },
+  "statusLabels": {
+    "INSTRUCT": "상품준비중",
+    "DEPARTURE": "배송출발",
+    "DELIVERING": "배송중",
+    "FINAL_DELIVERY": "배송완료",
+    "DELIVERED": "배송완료",
+    "CANCELED": "주문취소"
+  },
+  "canceledLabel": "주문취소"
+}
