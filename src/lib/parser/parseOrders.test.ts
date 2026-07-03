@@ -3,7 +3,7 @@ import { parseOrders } from './parseOrders';
 import { getByPath, toNumber, epochToISODate } from './fields';
 import type { ExtractConfig } from '../selectors/schema';
 import rawConfig from '../../../public/selectors.json';
-import { SAMPLE_HTML, BROKEN_HTML, NO_DATA_HTML } from './fixtures/synthetic';
+import { SAMPLE_HTML, BROKEN_HTML, NO_DATA_HTML, SPLIT_DELIVERY_HTML } from './fixtures/synthetic';
 
 // 실제 배포되는 selectors.json을 그대로 로드 → config 자체도 함께 검증한다.
 const CONFIG = rawConfig as ExtractConfig;
@@ -45,7 +45,7 @@ describe('parseOrders — 정상 경로', () => {
   it('할인 단가·총액·날짜·상태를 정확히 추출한다', () => {
     const banana = result.items.find((i) => i.productName === '유기농 바나나')!;
     expect(banana).toMatchObject({
-      id: '111-10',
+      id: '111-10-4500-2',
       orderId: '111',
       orderedAt: '2026-06-30',
       quantity: 2,
@@ -65,6 +65,20 @@ describe('parseOrders — 정상 경로', () => {
 
   it('페이지 정보(hasNext/nextPageIndex)를 추출', () => {
     expect(result.pageInfo).toEqual({ hasNext: true, nextPageIndex: 1 });
+  });
+});
+
+describe('parseOrders — 분리배송 중복 제거 (정확성)', () => {
+  const result = parseOrders(SPLIT_DELIVERY_HTML, CONFIG, OPTS);
+
+  it('5개로 복제된 동일 상품을 1건으로 집계', () => {
+    expect(result.items).toHaveLength(1);
+    expect(result.duplicatesSkipped).toBe(4);
+  });
+
+  it('총액이 5배(105,750)가 아니라 정확히 21,150이어야 한다', () => {
+    expect(result.items[0].totalPrice).toBe(21150);
+    expect(result.aborted).toBe(false);
   });
 });
 

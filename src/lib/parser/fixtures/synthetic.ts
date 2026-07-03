@@ -80,5 +80,23 @@ export const BROKEN_HTML = wrapNextData(
   ]),
 );
 
+/**
+ * 분리배송: 동일 상품(석수)이 5개 배송 그룹에 그대로 복제됨.
+ * 실제 쿠팡 데이터 패턴. 총액은 1건(21,150)이어야 하며, 5배(105,750)가 되면 안 됨.
+ */
+export const SPLIT_DELIVERY_HTML = wrapNextData(
+  nextData([
+    {
+      orderId: 999,
+      orderedAt: ORDER0_MS,
+      allCanceled: false,
+      deliveryGroupList: Array.from({ length: 5 }, () => ({
+        groupStatus: { status: 'FINAL_DELIVERY' },
+        productList: [product({ productId: 90, productName: '석수 무라벨', quantity: 1, unitPrice: 21150, discountedUnitPrice: 21150 })],
+      })),
+    },
+  ]),
+);
+
 /** __NEXT_DATA__ 자체가 없는 페이지 (구조 변경 시나리오). */
 export const NO_DATA_HTML = '<!doctype html><html><body><div>주문 없음</div></body></html>';

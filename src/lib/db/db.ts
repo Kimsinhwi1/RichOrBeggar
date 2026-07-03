@@ -10,10 +10,14 @@ export class LedgerDB extends Dexie {
   constructor() {
     super('coupang-ledger');
     this.version(1).stores({
-      // id = orderId-index, orderId·orderedAt·category로 조회
       orders: 'id, orderId, orderedAt, category',
       rules: 'keyword, category, priority',
     });
+    // v2: id 체계 변경(분리배송 중복 제거 반영). 주문 데이터는 재수집 가능한
+    // 로컬 캐시이므로, 옛 형식 잔재를 남기지 않도록 한 번 비운다.
+    this.version(2)
+      .stores({ orders: 'id, orderId, orderedAt, category', rules: 'keyword, category, priority' })
+      .upgrade((tx) => tx.table('orders').clear());
   }
 }
 

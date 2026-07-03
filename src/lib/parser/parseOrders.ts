@@ -24,6 +24,8 @@ export interface ParseResult {
   /** 필수 필드 실패로 버려진 수 */
   failedCount: number;
   failureRate: number;
+  /** 분리배송으로 복제된 항목을 걸러낸 수 */
+  duplicatesSkipped: number;
   /** DESIGN 4.4.3: 실패율 임계 초과 또는 데이터 부재 → 중단(시나리오 C) */
   aborted: boolean;
   /** 페이지네이션 순회용 (DESIGN 3.1) */
@@ -41,7 +43,7 @@ export interface ParseOptions {
 const NO_PAGE: PageInfo = { hasNext: false, nextPageIndex: null };
 
 function aborted(message: string): ParseResult {
-  return { items: [], totalAttempted: 0, failedCount: 0, failureRate: 1, aborted: true, pageInfo: NO_PAGE, errors: [{ orderIndex: -1, message }] };
+  return { items: [], totalAttempted: 0, failedCount: 0, failureRate: 1, duplicatesSkipped: 0, aborted: true, pageInfo: NO_PAGE, errors: [{ orderIndex: -1, message }] };
 }
 
 function readPageInfo(json: unknown, cfg: ExtractConfig): PageInfo {
@@ -88,7 +90,9 @@ function buildItem(
   const status = canceled ? cfg.canceledLabel : (cfg.statusLabels[statusCode] ?? statusCode);
 
   return {
-    id: `${ctx.orderId}-${productId}`,
+    // 분리배송 시 쿠팡은 동일 항목을 그룹마다 복제한다. (productId+단가+수량)이 같으면
+    // 같은 주문 라인이므로 id가 같아지고, 아래에서 중복으로 걸러진다.
+    id: `${ctx.orderId}-${productId}-${unitPriceRaw}-${quantity}`,
     orderId: ctx.orderId,
     orderedAt: ctx.orderedAt,
     productName,
@@ -119,8 +123,11 @@ export function parseOrders(html: string, cfg: ExtractConfig, options: ParseOpti
   const threshold = options.abortThreshold ?? 0.3;
   const items: OrderItem[] = [];
   const errors: ParseError[] = [];
+  // 분리배송으로 복제된 동일 라인을 한 번만 집계 (DESIGN 4.4.3: 정확성).
+  const seenIds = new Set<string>();
   let totalAttempted = 0;
   let failedCount = 0;
+  let duplicatesSkipped = 0;
 
   orders.forEach((order, orderIndex) => {
     const ctx: OrderCtx = {
@@ -137,14 +144,21 @@ export function parseOrders(html: string, cfg: ExtractConfig, options: ParseOpti
       if (!Array.isArray(products)) continue;
 
       products.forEach((product, itemIndex) => {
-        totalAttempted += 1;
         const item = buildItem(product, ctx, statusCode, cfg, collectedAt);
-        if (item) {
-          items.push(item);
-        } else {
+        if (!item) {
+          totalAttempted += 1;
           failedCount += 1;
           errors.push({ orderIndex, itemIndex, message: '필수 필드(상품명/단가) 추출 실패' });
+          return;
         }
+        // 분리배송 복제분은 조용히 건너뛴다 (실패 아님).
+        if (seenIds.has(item.id)) {
+          duplicatesSkipped += 1;
+          return;
+        }
+        seenIds.add(item.id);
+        totalAttempted += 1;
+        items.push(item);
       });
     }
   });
@@ -155,6 +169,7 @@ export function parseOrders(html: string, cfg: ExtractConfig, options: ParseOpti
     totalAttempted,
     failedCount,
     failureRate,
+    duplicatesSkipped,
     aborted: totalAttempted === 0 || failureRate > threshold,
     pageInfo: readPageInfo(json, cfg),
     errors,
