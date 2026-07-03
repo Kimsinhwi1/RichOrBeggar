@@ -99,6 +99,7 @@ function buildItem(
     quantity,
     unitPrice: unitPriceRaw,
     totalPrice: unitPriceRaw * quantity,
+    shippingFee: 0, // 주문 첫 상품에만 아래에서 실림
     status,
     category: null,
     categorySource: null,
@@ -138,6 +139,10 @@ export function parseOrders(html: string, cfg: ExtractConfig, options: ParseOpti
     const groups = getByPath(order, cfg.order.deliveryGroupList);
     if (!Array.isArray(groups)) return;
 
+    // 배송비는 주문당 1회. 첫 상품에만 실어 합산 시 중복되지 않게 한다.
+    const orderShipping = toNumber(getByPath(order, cfg.order.baseDeliveryPrice)) ?? 0;
+    let shippingApplied = false;
+
     for (const group of groups) {
       const statusCode = toText(getByPath(group, cfg.deliveryGroup.status));
       const products = getByPath(group, cfg.deliveryGroup.productList);
@@ -158,6 +163,10 @@ export function parseOrders(html: string, cfg: ExtractConfig, options: ParseOpti
         }
         seenIds.add(item.id);
         totalAttempted += 1;
+        if (!shippingApplied) {
+          item.shippingFee = orderShipping;
+          shippingApplied = true;
+        }
         items.push(item);
       });
     }

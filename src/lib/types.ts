@@ -25,8 +25,10 @@ export interface OrderItem {
   quantity: number;
   /** 원 */
   unitPrice: number;
-  /** 원 */
+  /** 원 (상품 금액 = unitPrice × quantity, 배송비 제외) */
   totalPrice: number;
+  /** 주문 배송비(원). 주문당 1회만 계상하기 위해 각 주문의 첫 상품에만 실림(나머지 0). */
+  shippingFee: number;
   /** 배송완료/취소 등 원문 그대로 */
   status: string;
   /** 분류 결과 (미분류 시 null) */

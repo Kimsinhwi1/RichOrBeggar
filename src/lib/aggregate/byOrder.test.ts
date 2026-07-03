@@ -11,6 +11,7 @@ function item(over: Partial<OrderItem>): OrderItem {
     quantity: 1,
     unitPrice: 1000,
     totalPrice: 1000,
+    shippingFee: 0,
     status: '배송완료',
     category: null,
     categorySource: null,
@@ -43,8 +44,21 @@ describe('summarizeByOrder', () => {
   });
 });
 
-describe('totalAmount', () => {
-  it('전체 총액 합산', () => {
-    expect(totalAmount([item({ totalPrice: 100 }), item({ totalPrice: 250 })])).toBe(350);
+describe('배송비 반영', () => {
+  const withShipping = [
+    item({ id: 'a', orderId: '500', totalPrice: 13500, shippingFee: 3000 }),
+    item({ id: 'b', orderId: '500', totalPrice: 12900, shippingFee: 0 }),
+  ];
+
+  it('주문 합산에 배송비 포함, 상품/배송비 분리 노출', () => {
+    const [o] = summarizeByOrder(withShipping);
+    expect(o.productAmount).toBe(26400);
+    expect(o.shippingFee).toBe(3000);
+    expect(o.totalAmount).toBe(29400);
+  });
+
+  it('전체 총액 = 상품 + 배송비', () => {
+    expect(totalAmount(withShipping)).toBe(29400);
+    expect(totalAmount([item({ totalPrice: 100, shippingFee: 50 })])).toBe(150);
   });
 });

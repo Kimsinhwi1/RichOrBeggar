@@ -35,6 +35,7 @@ export const SAMPLE_HTML = wrapNextData(
       orderId: 111,
       orderedAt: ORDER0_MS,
       allCanceled: false,
+      baseDeliveryPrice: 2500,
       deliveryGroupList: [
         {
           groupStatus: { status: 'DELIVERING' },

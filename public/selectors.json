@@ -9,7 +9,8 @@
     "orderId": "orderId",
     "orderedAt": "orderedAt",
     "allCanceled": "allCanceled",
-    "deliveryGroupList": "deliveryGroupList"
+    "deliveryGroupList": "deliveryGroupList",
+    "baseDeliveryPrice": "baseDeliveryPrice"
   },
   "deliveryGroup": {
     "status": "groupStatus.status",

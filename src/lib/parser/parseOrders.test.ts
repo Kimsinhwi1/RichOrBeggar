@@ -66,6 +66,13 @@ describe('parseOrders — 정상 경로', () => {
   it('페이지 정보(hasNext/nextPageIndex)를 추출', () => {
     expect(result.pageInfo).toEqual({ hasNext: true, nextPageIndex: 1 });
   });
+
+  it('배송비는 주문의 첫 상품에만 실린다', () => {
+    const banana = result.items.find((i) => i.productName === '유기농 바나나')!;
+    const cup = result.items.find((i) => i.productName === '종이컵 500개입')!;
+    expect(banana.shippingFee).toBe(2500); // 주문 111 첫 상품
+    expect(cup.shippingFee).toBe(0); // 같은 주문 두 번째 상품
+  });
 });
 
 describe('parseOrders — 분리배송 중복 제거 (정확성)', () => {

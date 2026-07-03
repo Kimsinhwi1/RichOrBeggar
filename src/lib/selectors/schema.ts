@@ -10,6 +10,8 @@ export interface OrderPaths {
   orderedAt: string;
   allCanceled: string;
   deliveryGroupList: string;
+  /** 주문 배송비 (원). 로켓배송은 보통 0, 3rd파티 배송에 부과 */
+  baseDeliveryPrice: string;
 }
 
 export interface DeliveryGroupPaths {

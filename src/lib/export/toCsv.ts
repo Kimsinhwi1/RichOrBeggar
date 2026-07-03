@@ -3,7 +3,7 @@ import type { OrderItem } from '../types';
 // DESIGN 3.1: CSV 다운로드 — 날짜, 주문번호, 상품명, 수량, 금액, 상태.
 // 순수 함수(OrderItem[] → CSV 문자열). 엑셀 한글 깨짐 방지를 위해 UTF-8 BOM + CRLF.
 
-const HEADERS = ['날짜', '주문번호', '상품명', '수량', '금액', '상태'] as const;
+const HEADERS = ['날짜', '주문번호', '상품명', '수량', '금액', '배송비', '상태'] as const;
 
 /** 엑셀이 UTF-8로 인식하도록 붙이는 Byte Order Mark. */
 const BOM = '﻿';
@@ -21,6 +21,7 @@ function toRow(item: OrderItem): string {
     item.productName,
     String(item.quantity),
     String(item.totalPrice),
+    String(item.shippingFee),
     item.status,
   ]
     .map(escapeCell)

@@ -8,6 +8,10 @@ export interface OrderSummary {
   orderedAt: string;
   itemCount: number;
   totalQuantity: number;
+  /** 상품 금액 합계 (배송비 제외) */
+  productAmount: number;
+  shippingFee: number;
+  /** 실 결제 합계 (상품 + 배송비) */
   totalAmount: number;
   /** 주문 내 상태가 하나면 그 값, 여러 개면 '혼합' */
   status: string;
@@ -26,14 +30,18 @@ export function summarizeByOrder(items: OrderItem[]): OrderSummary[] {
         orderedAt: item.orderedAt,
         itemCount: 1,
         totalQuantity: item.quantity,
-        totalAmount: item.totalPrice,
+        productAmount: item.totalPrice,
+        shippingFee: item.shippingFee,
+        totalAmount: item.totalPrice + item.shippingFee,
         status: item.status,
       });
       statuses.set(item.orderId, new Set([item.status]));
     } else {
       cur.itemCount += 1;
       cur.totalQuantity += item.quantity;
-      cur.totalAmount += item.totalPrice;
+      cur.productAmount += item.totalPrice;
+      cur.shippingFee += item.shippingFee;
+      cur.totalAmount += item.totalPrice + item.shippingFee;
       statuses.get(item.orderId)!.add(item.status);
     }
   }
@@ -45,7 +53,7 @@ export function summarizeByOrder(items: OrderItem[]): OrderSummary[] {
   return [...map.values()];
 }
 
-/** 전체 합계 (대시보드 상단 요약용). */
+/** 전체 실 결제 합계 = 상품 + 배송비 (대시보드 상단 요약용). */
 export function totalAmount(items: OrderItem[]): number {
-  return items.reduce((sum, i) => sum + i.totalPrice, 0);
+  return items.reduce((sum, i) => sum + i.totalPrice + i.shippingFee, 0);
 }

@@ -8,6 +8,6 @@ release/
 *.log
 
 # 개인정보 포함된 실제 쿠팡 페이지 덤프 (커밋 금지 — DESIGN 로컬 우선 원칙)
-쿠팡.txt
-src/lib/parser/fixtures/coupang-order-list.html
+쿠팡*.txt
+src/lib/parser/fixtures/coupang-order-list*.html
 

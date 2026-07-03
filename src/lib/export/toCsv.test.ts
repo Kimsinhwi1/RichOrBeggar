@@ -11,6 +11,7 @@ function item(over: Partial<OrderItem>): OrderItem {
     quantity: 2,
     unitPrice: 4500,
     totalPrice: 9000,
+    shippingFee: 0,
     status: '배송완료',
     category: null,
     categorySource: null,
@@ -20,12 +21,12 @@ function item(over: Partial<OrderItem>): OrderItem {
 }
 
 describe('toCsv', () => {
-  it('BOM + 헤더 + CRLF 행 구성', () => {
-    const csv = toCsv([item({})]);
+  it('BOM + 헤더 + CRLF 행 구성 (배송비 컬럼 포함)', () => {
+    const csv = toCsv([item({ shippingFee: 3000 })]);
     expect(csv.startsWith('﻿')).toBe(true);
     const [header, row] = csv.slice(1).split('\r\n');
-    expect(header).toBe('날짜,주문번호,상품명,수량,금액,상태');
-    expect(row).toBe('2026-06-30,111,바나나,2,9000,배송완료');
+    expect(header).toBe('날짜,주문번호,상품명,수량,금액,배송비,상태');
+    expect(row).toBe('2026-06-30,111,바나나,2,9000,3000,배송완료');
   });
 
   it('쉼표·따옴표·개행 포함 상품명 이스케이프', () => {
@@ -36,6 +37,6 @@ describe('toCsv', () => {
 
   it('빈 목록도 헤더만 반환', () => {
     const csv = toCsv([]);
-    expect(csv).toBe('﻿날짜,주문번호,상품명,수량,금액,상태');
+    expect(csv).toBe('﻿날짜,주문번호,상품명,수량,금액,배송비,상태');
   });
 });
