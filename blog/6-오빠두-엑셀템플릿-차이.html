@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<!--
+  [발행 가이드] 이미지(<img>) 자리에 blog/images/의 PNG 업로드.
+  키워드: 오빠두 쿠팡, 쿠팡 엑셀 템플릿, 쿠팡 쿠키 복사, 쿠팡 주문내역 엑셀, 쿠팡 가계부
+-->
+<style>
+body { font-family: 'Noto Sans KR', sans-serif; max-width: 720px; margin: 40px auto; padding: 0 20px; line-height: 1.8; color: #333; font-size: 16px; }
+h1 { font-size: 24px; font-weight: bold; margin-top: 40px; margin-bottom: 20px; }
+h2 { font-size: 20px; font-weight: bold; margin-top: 36px; margin-bottom: 16px; }
+p { margin-bottom: 16px; }
+strong { font-weight: bold; }
+img { max-width: 100%; border-radius: 8px; margin: 12px 0; border: 1px solid #eee; }
+figure { margin: 20px 0; }
+figcaption { font-size: 14px; color: #888; text-align: center; margin-top: 8px; }
+table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+th, td { border: 1px solid #ddd; padding: 10px 14px; text-align: left; font-size: 15px; }
+th { background-color: #f5f5f5; font-weight: bold; }
+blockquote { border-left: 4px solid #ff5000; padding-left: 16px; margin: 16px 0; color: #555; }
+.divider { border: none; border-top: 1px solid #ddd; margin: 32px 0; }
+.cta { display:inline-block; background:#ff5000; color:#fff; font-weight:bold; text-decoration:none; padding:12px 20px; border-radius:8px; margin-top:8px; }
+</style>
+</head>
+<body>
+
+<h1>쿠팡 엑셀 템플릿(오빠두 등)이랑 확장, 뭐가 다른가 — 나는 쿠키 복사가 싫었다</h1>
+
+<hr class="divider">
+
+<p>쿠팡 주문내역을 엑셀로 정리하는 방법을 찾다 보면 잘 만든 엑셀 템플릿을 많이 만난다. 오빠두처럼 엑셀 자체를 깊게 다루는 곳들 자료는 퀄리티가 좋다. 나도 참고 많이 했다. 그런데 <strong>한 가지가 계속 걸렸다.</strong></p>
+
+<h2>쿠키를 복사해서 붙여넣는 방식</h2>
+
+<p>일부 엑셀 자동화 방법은, 쿠팡에서 데이터를 가져오려고 <strong>브라우저 쿠키나 특정 값을 복사해서 엑셀(또는 스크립트)에 붙여넣게</strong> 한다. 작동은 하는데, 나는 이게 두 가지로 불편했다.</p>
+
+<p><strong>첫째, 복잡하다.</strong> 개발자도구 열고, 특정 값 찾아서 복사하고… 비개발자라면 여기서부터 막힌다.</p>
+
+<p><strong>둘째, 찜찜하다.</strong> 쿠키는 로그인 상태를 담고 있는 값이라, 이걸 어딘가에 붙여넣는 게 보안상 기분이 좋지 않았다. "이거 잘못 새면 계정 넘어가는 거 아냐?" 싶은 거다.</p>
+
+<h2>확장은 쿠키 복사가 필요 없다</h2>
+
+<p>그래서 만든 확장은 아예 접근이 다르다. 쿠키를 복사할 필요 없이, <strong>내가 이미 로그인해서 보고 있는 주문목록 페이지의 데이터를 그 자리에서 읽는다.</strong> 버튼 한 번 누르면 끝이고, 값을 어디 붙여넣거나 할 일이 없다.</p>
+
+<figure>
+  <img src="images/compare-template-vs-extension.png" alt="쿠팡 엑셀 템플릿과 확장 비교">
+  <figcaption>쿠키 복사 필요 여부가 가장 체감되는 차이였다.</figcaption>
+</figure>
+
+<p>그리고 긁어온 데이터는 <strong>외부 서버로 안 나가고 내 브라우저에만 저장된다.</strong> 쿠팡 계정에도 아무것도 안 쓰는(주문/취소 X) 읽기 전용이라, 계정이 위험할 일이 없다.</p>
+
+<figure>
+  <img src="images/privacy.png" alt="쿠팡 가계부 개인정보 보호">
+  <figcaption>서버 전송 없음 · 읽기 전용 · 가입 불필요.</figcaption>
+</figure>
+
+<h2>그래도 템플릿이 나은 경우</h2>
+
+<p>오해는 말자. 엑셀 템플릿이 나쁜 게 아니다. <strong>표를 완전히 내 마음대로 짜고 싶거나, 복잡한 수식·차트를 직접 만들고 싶으면 템플릿이 훨씬 자유롭다.</strong> 확장은 정해진 리포트와 CSV 내보내기 위주라, 자유도는 템플릿이 이긴다.</p>
+
+<table>
+<tr><th></th><th>엑셀 템플릿</th><th>확장</th></tr>
+<tr><td>쿠키 복사</td><td>필요한 경우 있음</td><td>불필요</td></tr>
+<tr><td>난이도</td><td>중~상</td><td>버튼 한 번</td></tr>
+<tr><td>자유도</td><td>높음 (직접 편집)</td><td>정해진 리포트</td></tr>
+<tr><td>데이터 저장</td><td>파일</td><td>브라우저 로컬</td></tr>
+</table>
+
+<blockquote>
+템플릿은 자유롭지만 손이 많이 가고, 확장은 빠르지만 정해진 틀 안이다. 나는 "빠르고 안전하게"가 우선이라 확장을 쓴다. 뽑은 CSV를 템플릿에 붙여 쓰면 둘의 장점만 챙길 수도 있다.</blockquote>
+
+<p>쿠키 복사하는 방식이 부담스러웠던 분이라면, 확장 쪽이 마음 편할 거다.</p>
+
+<p><a class="cta" href="https://chromewebstore.google.com/detail/abifielhojkgohomnhabbplnnjjfgmpf">쿠팡 가계부 설치하러 가기 (무료)</a></p>
+
+<hr class="divider">
+
+<p>#오빠두 #쿠팡엑셀템플릿 #쿠팡쿠키복사 #쿠팡주문내역엑셀 #쿠팡가계부 #엑셀자동화 #크롬확장 #개인정보 #1인개발</p>
+
+</body>
+</html>

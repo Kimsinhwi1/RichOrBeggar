@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<!--
+  [발행 가이드] 이미지(<img>) 자리에 blog/images/의 PNG 업로드.
+  키워드: 쿠팡 가계부 자동화, 쿠팡 엑셀 템플릿, 쿠팡 주문내역 정리, 쿠팡 지출 정리
+-->
+<style>
+body { font-family: 'Noto Sans KR', sans-serif; max-width: 720px; margin: 40px auto; padding: 0 20px; line-height: 1.8; color: #333; font-size: 16px; }
+h1 { font-size: 24px; font-weight: bold; margin-top: 40px; margin-bottom: 20px; }
+h2 { font-size: 20px; font-weight: bold; margin-top: 36px; margin-bottom: 16px; }
+p { margin-bottom: 16px; }
+strong { font-weight: bold; }
+img { max-width: 100%; border-radius: 8px; margin: 12px 0; border: 1px solid #eee; }
+figure { margin: 20px 0; }
+figcaption { font-size: 14px; color: #888; text-align: center; margin-top: 8px; }
+table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+th, td { border: 1px solid #ddd; padding: 10px 14px; text-align: left; font-size: 15px; }
+th { background-color: #f5f5f5; font-weight: bold; }
+blockquote { border-left: 4px solid #ff5000; padding-left: 16px; margin: 16px 0; color: #555; }
+.divider { border: none; border-top: 1px solid #ddd; margin: 32px 0; }
+.cta { display:inline-block; background:#ff5000; color:#fff; font-weight:bold; text-decoration:none; padding:12px 20px; border-radius:8px; margin-top:8px; }
+</style>
+</head>
+<body>
+
+<h1>쿠팡 가계부, 엑셀 템플릿 vs 확장 (둘 다 써본 후기)</h1>
+
+<hr class="divider">
+
+<p>쿠팡 지출을 정리하는 방법은 크게 두 가지다. <strong>엑셀 템플릿에 직접 정리</strong>하거나, <strong>확장으로 자동 추출</strong>하거나. 나는 둘 다 꽤 오래 써봤다. 그래서 뭐가 언제 나은지 솔직하게 적어본다.</p>
+
+<h2>처음엔 엑셀 템플릿을 썼다</h2>
+
+<p>블로그에서 잘 만든 가계부 템플릿을 받아서 쿠팡 주문을 옮겨 적었다. 템플릿 자체는 좋다. 내 마음대로 항목도 넣고, 수식도 짜고. 근데 문제는 <strong>데이터를 채워 넣는 과정</strong>이다.</p>
+
+<p>주문 페이지 열어서 날짜 복사, 상품명 복사, 금액 복사… 이걸 주문마다 반복한다. 몇 건이면 괜찮은데 몇 달치가 쌓이면 이게 일이 된다. 어떤 템플릿은 쿠키를 복사해서 붙여넣게 하는데, 그건 좀 복잡하고 보안상 찜찜하기도 했다.</p>
+
+<h2>그래서 확장을 만들었다</h2>
+
+<p>결국 "채워 넣는 과정"을 자동화하고 싶어서 확장을 직접 만들었다. 주문목록 페이지에서 버튼 한 번 누르면 여러 페이지를 자동으로 순회하면서 전부 긁어온다. 옮겨 적을 필요가 없다.</p>
+
+<figure>
+  <img src="images/compare-template-vs-extension.png" alt="쿠팡 엑셀 템플릿과 확장 비교">
+  <figcaption>수기 입력이 필요하냐 아니냐가 가장 큰 차이.</figcaption>
+</figure>
+
+<h2>그래서 뭐가 나은데</h2>
+
+<p>정리하면 이렇다.</p>
+
+<table>
+<tr><th></th><th>엑셀 템플릿</th><th>확장</th></tr>
+<tr><td>입력</td><td>수기 (복사·붙여넣기 반복)</td><td>버튼 한 번, 자동</td></tr>
+<tr><td>여러 페이지</td><td>페이지마다 반복</td><td>자동 순회</td></tr>
+<tr><td>커스텀</td><td>자유롭게 수식·항목 편집</td><td>정해진 리포트 위주</td></tr>
+<tr><td>쿠키 복사</td><td>필요한 경우 있음</td><td>불필요</td></tr>
+</table>
+
+<p>솔직히 <strong>완전 자기 입맛대로 표를 짜고 싶으면 엑셀 템플릿이 낫다.</strong> 대신 그만큼 손이 많이 간다. 반대로 <strong>"그냥 빠르게 뽑아서 지출만 보고 싶다"면 확장이 압도적</strong>이다. 나는 후자라서 확장으로 넘어왔고, 확장으로 뽑은 CSV를 다시 내 엑셀 템플릿에 붙여넣기도 한다. 둘을 섞어 쓰는 것도 방법이다.</p>
+
+<blockquote>
+도구는 이기고 지는 게 아니라 역할이 다른 거다. 자동으로 뽑고(확장), 자유롭게 가공한다(엑셀). 둘 다 쓰면 된다.
+</blockquote>
+
+<p>데이터가 외부로 안 나가는 것도 확장 쪽이 마음 편했다. 주문내역은 전부 브라우저에만 저장되고 서버로 안 보낸다.</p>
+
+<p><a class="cta" href="https://chromewebstore.google.com/detail/abifielhojkgohomnhabbplnnjjfgmpf">쿠팡 가계부 설치하러 가기 (무료)</a></p>
+
+<hr class="divider">
+
+<p>#쿠팡가계부자동화 #쿠팡엑셀템플릿 #쿠팡주문내역정리 #쿠팡지출정리 #가계부템플릿 #쿠팡엑셀 #크롬확장 #1인개발</p>
+
+</body>
+</html>

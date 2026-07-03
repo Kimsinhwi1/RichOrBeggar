@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1200px; height:560px; font-family:'Malgun Gothic', system-ui, sans-serif; }
+  body { background:linear-gradient(135deg,#fff3ec,#fff); padding:52px 56px; color:#1a1a1a; }
+  h1 { font-size:36px; font-weight:800; letter-spacing:-1px; margin-bottom:36px; }
+  h1 span { color:#ff5000; }
+  .steps { display:flex; gap:24px; }
+  .step { flex:1; background:#fff; border:1px solid #eee; border-radius:18px; padding:30px 26px; box-shadow:0 12px 34px rgba(0,0,0,0.07); position:relative; }
+  .num { width:52px; height:52px; border-radius:50%; background:#ff5000; color:#fff; font-size:26px; font-weight:800; display:flex; align-items:center; justify-content:center; margin-bottom:20px; }
+  .t { font-size:23px; font-weight:800; margin-bottom:10px; }
+  .d { font-size:17px; color:#666; line-height:1.55; }
+  .arrow { position:absolute; right:-18px; top:52px; font-size:26px; color:#ffb08c; z-index:2; }
+</style>
+</head>
+<body>
+  <h1>쿠팡 주문내역 엑셀 추출, <span>딱 3단계</span></h1>
+  <div class="steps">
+    <div class="step"><div class="num">1</div><div class="t">확장 설치</div><div class="d">크롬 웹스토어에서 "쿠팡 가계부" 검색 후 설치. 회원가입 없음.</div><div class="arrow">▶</div></div>
+    <div class="step"><div class="num">2</div><div class="t">버튼 클릭</div><div class="d">쿠팡 주문목록 페이지에서 우하단 "내역 가져오기" 클릭. 여러 페이지 자동 순회.</div><div class="arrow">▶</div></div>
+    <div class="step"><div class="num">3</div><div class="t">CSV 다운로드</div><div class="d">대시보드에서 지출 확인 후 엑셀(CSV)로 저장. 한글 안 깨짐.</div></div>
+  </div>
+</body>
+</html>

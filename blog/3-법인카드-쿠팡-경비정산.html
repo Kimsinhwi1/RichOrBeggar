@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<!--
+  [발행 가이드] 이미지(<img>) 자리에 blog/images/의 PNG 업로드.
+  키워드: 법인카드 쿠팡, 쿠팡 경비정산, 쿠팡 주문내역 엑셀, 쿠팡 카드 대조, 쿠팡 영수증
+-->
+<style>
+body { font-family: 'Noto Sans KR', sans-serif; max-width: 720px; margin: 40px auto; padding: 0 20px; line-height: 1.8; color: #333; font-size: 16px; }
+h1 { font-size: 24px; font-weight: bold; margin-top: 40px; margin-bottom: 20px; }
+h2 { font-size: 20px; font-weight: bold; margin-top: 36px; margin-bottom: 16px; }
+p { margin-bottom: 16px; }
+strong { font-weight: bold; }
+img { max-width: 100%; border-radius: 8px; margin: 12px 0; border: 1px solid #eee; }
+figure { margin: 20px 0; }
+figcaption { font-size: 14px; color: #888; text-align: center; margin-top: 8px; }
+table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+th, td { border: 1px solid #ddd; padding: 10px 14px; text-align: left; font-size: 15px; }
+th { background-color: #f5f5f5; font-weight: bold; }
+blockquote { border-left: 4px solid #ff5000; padding-left: 16px; margin: 16px 0; color: #555; }
+.divider { border: none; border-top: 1px solid #ddd; margin: 32px 0; }
+.cta { display:inline-block; background:#ff5000; color:#fff; font-weight:bold; text-decoration:none; padding:12px 20px; border-radius:8px; margin-top:8px; }
+</style>
+</head>
+<body>
+
+<h1>법인카드 쿠팡 경비정산, 5분이면 끝난다</h1>
+
+<hr class="divider">
+
+<p>회사에서 비품을 쿠팡으로 산다. 사무용품, 커피, 물티슈… 웬만한 건 쿠팡이 제일 빠르니까. 문제는 <strong>매달 말 경비 정산할 때</strong>다.</p>
+
+<p>법인카드 명세서에는 "쿠팡 48,300원" 이렇게 <strong>주문 단위 금액</strong>으로 찍힌다. 근데 쿠팡 주문 하나에는 상품이 여러 개 들어있다. 그래서 카드 청구액이랑 주문을 맞추려면, 주문에 담긴 상품 금액을 일일이 더해서 대조해야 한다. 이게 은근히 노가다다.</p>
+
+<h2>주문번호로 합산해서 카드랑 바로 대조</h2>
+
+<p>이 노가다가 싫어서, 주문내역을 뽑을 때 <strong>같은 주문번호끼리 금액을 자동으로 합산</strong>하게 만들었다. 그러면 카드 명세서의 청구 금액이랑 주문번호별 합산 금액을 한 줄씩 나란히 맞추기만 하면 된다.</p>
+
+<figure>
+  <img src="images/order-summary.png" alt="쿠팡 주문번호 합산 뷰로 카드 명세서 대조">
+  <figcaption>주문번호별 합산 금액. 카드 명세서 청구액이랑 그대로 대조된다.</figcaption>
+</figure>
+
+<p>여기에 CSV로 내보내면 회계팀에 제출할 엑셀도 바로 만들어진다. 날짜·주문번호·상품명·수량·금액·상태가 다 들어있어서, 증빙용으로도 충분하다.</p>
+
+<figure>
+  <img src="images/csv-excel.png" alt="쿠팡 경비정산용 엑셀 CSV">
+  <figcaption>제출용 엑셀도 버튼 한 번. 한글 안 깨진다.</figcaption>
+</figure>
+
+<blockquote>
+정산이 귀찮은 건 금액이 커서가 아니라, 숫자를 맞추는 손작업이 많아서다. 그 손작업만 없애면 월말이 편해진다.
+</blockquote>
+
+<h2>이런 분한테 특히</h2>
+
+<table>
+<tr><th>상황</th><th>왜 편해지나</th></tr>
+<tr><td>법인카드로 쿠팡 비품 구매</td><td>주문번호 합산으로 카드 청구액 즉시 대조</td></tr>
+<tr><td>자영업 경비 처리</td><td>기간별 주문내역 엑셀로 한 번에 정리</td></tr>
+<tr><td>매달 반복 정산</td><td>버튼 한 번이라 월말 루틴이 짧아짐</td></tr>
+</table>
+
+<h2>데이터는 안 샌다</h2>
+
+<p>회사 구매 내역이라 더 민감할 수 있는데, 이 확장은 <strong>주문 데이터를 서버로 안 보낸다.</strong> 전부 본인 브라우저에만 저장되고, 쿠팡 계정엔 아무것도 안 쓰는 읽기 전용이다. 회사 PC에서 써도 부담이 적다.</p>
+
+<p>매달 카드 명세서 붙잡고 쿠팡 주문 맞추느라 시간 쓰는 분이라면, 한 번 써보고 판단해보길.</p>
+
+<p><a class="cta" href="https://chromewebstore.google.com/detail/abifielhojkgohomnhabbplnnjjfgmpf">쿠팡 가계부 설치하러 가기 (무료)</a></p>
+
+<hr class="divider">
+
+<p>#법인카드쿠팡 #쿠팡경비정산 #쿠팡주문내역엑셀 #경비처리 #자영업 #쿠팡영수증 #쿠팡가계부 #세금계산서 #1인개발</p>
+
+</body>
+</html>

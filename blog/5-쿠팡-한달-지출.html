@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<!--
+  [발행 가이드] 이미지(<img>) 자리에 blog/images/의 PNG 업로드.
+  키워드: 쿠팡 한달 지출, 쿠팡 얼마, 쿠팡 소비, 쿠팡 가계부, 무지출 챌린지
+-->
+<style>
+body { font-family: 'Noto Sans KR', sans-serif; max-width: 720px; margin: 40px auto; padding: 0 20px; line-height: 1.8; color: #333; font-size: 16px; }
+h1 { font-size: 24px; font-weight: bold; margin-top: 40px; margin-bottom: 20px; }
+h2 { font-size: 20px; font-weight: bold; margin-top: 36px; margin-bottom: 16px; }
+p { margin-bottom: 16px; }
+strong { font-weight: bold; }
+img { max-width: 100%; border-radius: 8px; margin: 12px 0; border: 1px solid #eee; }
+figure { margin: 20px 0; }
+figcaption { font-size: 14px; color: #888; text-align: center; margin-top: 8px; }
+table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+th, td { border: 1px solid #ddd; padding: 10px 14px; text-align: left; font-size: 15px; }
+th { background-color: #f5f5f5; font-weight: bold; }
+blockquote { border-left: 4px solid #ff5000; padding-left: 16px; margin: 16px 0; color: #555; }
+.divider { border: none; border-top: 1px solid #ddd; margin: 32px 0; }
+.cta { display:inline-block; background:#ff5000; color:#fff; font-weight:bold; text-decoration:none; padding:12px 20px; border-radius:8px; margin-top:8px; }
+</style>
+</head>
+<body>
+
+<h1>쿠팡에서 한 달에 얼마 쓰는지 아세요? (나는 몰랐다)</h1>
+
+<hr class="divider">
+
+<p>가끔 무지출 챌린지 같은 걸 보면서 "나도 좀 아껴야 하나" 생각은 하는데, 정작 <strong>내가 한 달에 쿠팡에서 얼마 쓰는지</strong>는 몰랐다. 카드값은 그냥 뭉텅이로 빠져나가니까, 그중 쿠팡이 얼마인지 따로 보이지가 않는다.</p>
+
+<p>그래서 한 달치 쿠팡 주문내역을 뽑아서 합계를 내봤다. 예상보다 컸다.</p>
+
+<figure>
+  <img src="images/dashboard.png" alt="쿠팡 한 달 지출 대시보드">
+  <figcaption>한 달 주문을 다 더하면 이렇게 총액으로 보인다.</figcaption>
+</figure>
+
+<h2>"만 원짜리"의 함정</h2>
+
+<p>쿠팡은 대부분 몇천 원~몇만 원짜리라 살 때는 부담이 없다. 근데 이게 한 달 동안 스물몇 번 쌓이면 만만치 않은 금액이 된다. 낱개로 볼 땐 안 보이던 게, 합쳐서 총액으로 보면 확 보인다.</p>
+
+<blockquote>
+소비를 줄이는 첫 단계는 참는 게 아니라 아는 거다. 한 달에 얼마 쓰는지 숫자로 보이면, 그다음 달은 저절로 조심하게 된다.
+</blockquote>
+
+<h2>한 달치 뽑는 법</h2>
+
+<p>쿠팡은 주문내역 엑셀을 안 주니까, 페이지 데이터를 긁어오는 확장을 썼다.</p>
+
+<p><strong>1.</strong> "쿠팡 가계부" 확장 설치 → <strong>2.</strong> 주문목록에서 "내역 가져오기" 클릭 → <strong>3.</strong> 대시보드에서 이번 달 총 지출 확인.</p>
+
+<p>주문 데이터는 <strong>내 브라우저에만 저장되고 서버로 안 나간다.</strong> 내 소비 내역이라 이건 중요했다.</p>
+
+<h2>이렇게 보면 달라진다</h2>
+
+<table>
+<tr><th>보기 전</th><th>보고 나서</th></tr>
+<tr><td>"쿠팡? 그냥 필요한 것만 사는데"</td><td>"어… 이번 달에 이만큼 썼다고?"</td></tr>
+<tr><td>카드값에 묻혀서 안 보임</td><td>쿠팡 지출만 딱 분리해서 보임</td></tr>
+</table>
+
+<p>돈 아끼자는 잔소리를 하려는 게 아니다. 그냥 한 번 자기 숫자를 보면, 다음 소비가 조금 달라진다. 이번 달 쿠팡 지출부터 한번 뽑아보길.</p>
+
+<p><a class="cta" href="https://chromewebstore.google.com/detail/abifielhojkgohomnhabbplnnjjfgmpf">쿠팡 가계부 설치하러 가기 (무료)</a></p>
+
+<hr class="divider">
+
+<p>#쿠팡한달지출 #쿠팡얼마 #쿠팡소비 #무지출챌린지 #가계부 #쿠팡가계부 #지출관리 #쿠팡엑셀 #1인개발</p>
+
+</body>
+</html>
