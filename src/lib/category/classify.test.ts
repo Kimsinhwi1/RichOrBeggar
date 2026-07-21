@@ -67,7 +67,7 @@ describe('classifyProduct — 규칙', () => {
 describe('classifyItems', () => {
   const base: OrderItem = {
     id: 'x', profile: '기본', orderId: '1', orderedAt: '2026-06-30', productName: '탐사 샘물',
-    quantity: 1, unitPrice: 1000, totalPrice: 1000, shippingFee: 0, status: '배송완료',
+    quantity: 1, unitPrice: 1000, totalPrice: 1000, shippingFee: 0, status: '배송완료', canceled: false,
     category: null, categorySource: null, collectedAt: '2026-07-03T00:00:00.000Z',
   };
 

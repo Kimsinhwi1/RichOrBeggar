@@ -33,6 +33,8 @@ export interface OrderItem {
   shippingFee: number;
   /** 배송완료/취소 등 원문 그대로 */
   status: string;
+  /** 취소 여부. 지출 집계에서 제외하기 위해 파싱 시 명시적으로 남긴다. */
+  canceled: boolean;
   /** 분류 결과 (미분류 시 null) */
   category: string | null;
   categorySource: CategorySource;

@@ -53,7 +53,22 @@ export function summarizeByOrder(items: OrderItem[]): OrderSummary[] {
   return [...map.values()];
 }
 
-/** 전체 실 결제 합계 = 상품 + 배송비 (대시보드 상단 요약용). */
+/** 취소 건 판별. 옛 데이터(canceled 없음) 호환을 위해 상태 문자열도 확인한다. */
+export function isCanceled(item: OrderItem): boolean {
+  return item.canceled === true || item.status === '주문취소';
+}
+
+/** 실제 지출로 잡히는 항목만 (취소 제외). 가계부이므로 취소는 지출이 아니다. */
+export function spentItems(items: OrderItem[]): OrderItem[] {
+  return items.filter((i) => !isCanceled(i));
+}
+
+/** 전체 실 결제 합계 = 상품 + 배송비 (취소 포함, 원자료용). */
 export function totalAmount(items: OrderItem[]): number {
   return items.reduce((sum, i) => sum + i.totalPrice + i.shippingFee, 0);
+}
+
+/** 실제 지출 합계 (취소 제외) — 대시보드 상단 요약용. */
+export function totalSpent(items: OrderItem[]): number {
+  return totalAmount(spentItems(items));
 }

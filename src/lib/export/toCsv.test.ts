@@ -14,6 +14,7 @@ function item(over: Partial<OrderItem>): OrderItem {
     totalPrice: 9000,
     shippingFee: 0,
     status: '배송완료',
+    canceled: false,
     category: null,
     categorySource: null,
     collectedAt: '2026-07-02T00:00:00.000Z',

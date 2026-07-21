@@ -102,6 +102,7 @@ function buildItem(
     totalPrice: unitPriceRaw * quantity,
     shippingFee: 0, // 주문 첫 상품에만 아래에서 실림
     status,
+    canceled,
     category: null,
     categorySource: null,
     collectedAt,

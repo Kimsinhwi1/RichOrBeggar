@@ -4,7 +4,9 @@
 import { useEffect, useState } from 'react';
 import type { OrderItem } from '../lib/types';
 import { getAllOrders } from '../lib/db/db';
-import { summarizeByOrder, totalAmount, type OrderSummary } from '../lib/aggregate/byOrder';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
+import { summarizeByOrder, totalSpent, spentItems, isCanceled, type OrderSummary } from '../lib/aggregate/byOrder';
+import { summarizeByMonth, monthlyAverage } from '../lib/aggregate/byMonth';
 import { toCsv } from '../lib/export/toCsv';
 import { downloadText } from '../lib/export/download';
 
@@ -68,10 +70,12 @@ export function App() {
           <Summary
             itemCount={shown.length}
             orderCount={summaries.length}
-            total={totalAmount(shown)}
+            total={totalSpent(shown)}
+            canceledCount={shown.filter(isCanceled).length}
             onExport={() => downloadText(`coupang-orders${profile === ALL ? '' : `-${profile}`}.csv`, toCsv(shown))}
           />
-          <CategoryBreakdown items={shown} />
+          <MonthlyChart items={shown} />
+          <CategoryBreakdown items={spentItems(shown)} />
           <OrderTable summaries={summaries} />
         </>
       )}
@@ -79,12 +83,15 @@ export function App() {
   );
 }
 
-function Summary(props: { itemCount: number; orderCount: number; total: number; onExport: () => void }) {
+function Summary(props: { itemCount: number; orderCount: number; total: number; canceledCount: number; onExport: () => void }) {
   return (
     <section style={{ display: 'flex', gap: 24, alignItems: 'center', margin: '16px 0 24px' }}>
       <Stat label="주문 수" value={`${props.orderCount}건`} />
       <Stat label="상품 수" value={`${props.itemCount}건`} />
-      <Stat label="총 지출" value={won(props.total)} />
+      <Stat
+        label={props.canceledCount > 0 ? `총 지출 (취소 ${props.canceledCount}건 제외)` : '총 지출'}
+        value={won(props.total)}
+      />
       <button onClick={props.onExport} style={{ marginLeft: 'auto', padding: '10px 16px', background: '#ff5000', color: '#fff', border: 'none', borderRadius: 8, fontWeight: 700, cursor: 'pointer' }}>
         CSV 다운로드
       </button>
@@ -98,6 +105,38 @@ function Stat({ label, value }: { label: string; value: string }) {
       <div style={{ fontSize: 12, color: '#888' }}>{label}</div>
       <div style={{ fontSize: 20, fontWeight: 700 }}>{value}</div>
     </div>
+  );
+}
+
+/** DESIGN 3.1: 월별 지출 막대그래프 (취소 제외). */
+function MonthlyChart({ items }: { items: OrderItem[] }) {
+  const months = summarizeByMonth(items);
+  if (months.length === 0) return null;
+
+  return (
+    <section style={{ margin: '0 0 30px' }}>
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 12 }}>
+        <h2 style={{ fontSize: 16, margin: 0 }}>월별 지출</h2>
+        <span style={{ fontSize: 13, color: '#888' }}>월평균 {won(monthlyAverage(months))}</span>
+      </div>
+      <div style={{ height: 240 }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={months} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#eee" />
+            <XAxis dataKey="label" tick={{ fontSize: 12, fill: '#888' }} axisLine={false} tickLine={false} />
+            <YAxis
+              tickFormatter={(v: number) => (v >= 10000 ? `${Math.round(v / 10000)}만` : String(v))}
+              tick={{ fontSize: 12, fill: '#888' }}
+              axisLine={false}
+              tickLine={false}
+              width={48}
+            />
+            <Tooltip formatter={(v: number) => [won(v), '지출']} cursor={{ fill: '#fff4ee' }} />
+            <Bar dataKey="total" fill="#ff5000" radius={[4, 4, 0, 0]} maxBarSize={56} />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    </section>
   );
 }
 
