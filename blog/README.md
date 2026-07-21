@@ -13,6 +13,7 @@ DESIGN 6.2 마케팅용. 목적은 검색 유입(→ 설치)이지만, 광고체
 | 4 | [템플릿 vs 확장](4-쿠팡-가계부-엑셀템플릿-vs-확장.html) | 쿠팡 가계부 자동화, 쿠팡 엑셀 템플릿 | compare-template-vs-extension |
 | 5 | [한 달 지출](5-쿠팡-한달-지출.html) | 쿠팡 한달 지출, 쿠팡 소비 | dashboard |
 | 6 | [오빠두 비교](6-오빠두-엑셀템플릿-차이.html) | 오빠두 쿠팡, 쿠팡 쿠키 복사 | compare-template-vs-extension, privacy |
+| 7 | [실사용자 제보 업데이트](7-실사용자-제보-업데이트.html) | 쿠팡 계정 여러개, 카테고리 자동분류 | stop-profile, category-breakdown |
 
 ## 이미지 (`blog/images/`)
 스토어 스크린샷 재활용 + 블로그 전용 2장(howto, compare). 전부 개인정보 없는 샘플 데이터.

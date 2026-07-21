@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1200px; height:620px; font-family:'Malgun Gothic', system-ui, sans-serif; }
+  body { background:#f6f7f9; padding:44px 48px; color:#1a1a1a; }
+  h1 { font-size:32px; font-weight:800; letter-spacing:-1px; margin-bottom:24px; text-align:center; }
+  h1 span { color:#ff5000; }
+  .row { display:flex; gap:24px; }
+  .col { flex:1; }
+  .cap { font-size:17px; font-weight:800; margin-bottom:12px; color:#333; }
+  .card { background:#fff; border:1px solid #eee; border-radius:14px; box-shadow:0 10px 28px rgba(0,0,0,0.08); padding:22px; height:390px; position:relative; }
+  .fake { height:52px; background:#f4f4f6; border-radius:8px; margin-bottom:10px; }
+  .stopbtn { position:absolute; right:22px; bottom:22px; background:#c0392b; color:#fff; font-weight:800; font-size:16px; border-radius:10px; padding:14px 20px; box-shadow:0 6px 16px rgba(192,57,43,.35); }
+  .toast { position:absolute; right:22px; bottom:84px; background:#1f8a3b; color:#fff; font-size:14px; font-weight:600; border-radius:9px; padding:11px 15px; }
+  .plabel { font-size:13px; font-weight:800; color:#444; margin-bottom:6px; }
+  .pin { display:flex; gap:7px; margin-bottom:10px; }
+  .inp { flex:1; border:1px solid #ccc; border-radius:7px; padding:11px 12px; font-size:15px; color:#222; }
+  .save { border:1px solid #ccc; border-radius:7px; padding:11px 14px; font-size:14px; background:#fff; }
+  .hint { font-size:12.5px; color:#999; line-height:1.5; margin-bottom:16px; }
+  .pbtn { background:#ff5000; color:#fff; text-align:center; font-weight:800; border-radius:9px; padding:12px; font-size:14px; margin-bottom:8px; }
+  .pbtn.dark { background:#333; }
+</style>
+</head>
+<body>
+  <h1>실사용자 제보로 고친 <span>두 가지</span></h1>
+  <div class="row">
+    <div class="col">
+      <div class="cap">① 언제든 멈출 수 있게</div>
+      <div class="card">
+        <div class="fake"></div><div class="fake"></div><div class="fake"></div><div class="fake"></div>
+        <div class="toast">수집 중… 3페이지 · 누적 41건</div>
+        <div class="stopbtn">■ 수집 중지 (3페이지)</div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="cap">② 쿠팡 계정별로 분리</div>
+      <div class="card">
+        <div style="font-size:15px;font-weight:800;margin-bottom:4px;">쿠팡 가계부</div>
+        <div style="font-size:12px;color:#666;margin-bottom:14px;">누적 128건</div>
+        <div class="plabel">프로필 (쿠팡 계정 구분)</div>
+        <div class="pin"><div class="inp">A업장</div><div class="save">저장</div></div>
+        <div class="hint">계정을 바꿔 로그인했다면 수집 전에 프로필 이름을 바꾸세요. 대시보드에서 프로필별로 나눠 볼 수 있어요.</div>
+        <div class="pbtn">주문목록 페이지 열기</div>
+        <div class="pbtn dark">대시보드 열기</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

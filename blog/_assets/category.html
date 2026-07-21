@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1200px; height:700px; font-family:'Malgun Gothic', system-ui, sans-serif; }
+  body { background:linear-gradient(135deg,#fff3ec,#fff); padding:48px 56px; color:#1a1a1a; }
+  .badge { display:inline-block; background:#ff5000; color:#fff; font-size:14px; font-weight:700; padding:5px 13px; border-radius:999px; margin-bottom:14px; }
+  h1 { font-size:36px; font-weight:800; letter-spacing:-1px; margin-bottom:8px; }
+  h1 span { color:#ff5000; }
+  .sub { font-size:17px; color:#777; margin-bottom:26px; }
+  .card { background:#fff; border:1px solid #eee; border-radius:16px; box-shadow:0 14px 36px rgba(0,0,0,0.09); padding:26px 30px; }
+  .ct { font-size:17px; font-weight:800; margin-bottom:18px; }
+  .row { display:flex; align-items:center; gap:14px; margin-bottom:11px; }
+  .nm { width:110px; font-size:15px; color:#444; }
+  .track { flex:1; background:#f2f2f2; border-radius:5px; height:22px; }
+  .fill { background:#ff5000; height:100%; border-radius:5px; }
+  .amt { width:120px; text-align:right; font-size:15px; font-weight:700; }
+</style>
+</head>
+<body>
+  <div class="badge">NEW</div>
+  <h1>이제 <span>카테고리별</span>로 자동 분류됩니다</h1>
+  <div class="sub">상품명만 보고 식품 / 생활용품 / 패션 … 8개 항목으로 자동 정리</div>
+  <div class="card">
+    <div class="ct">카테고리별 지출</div>
+    <div class="row"><div class="nm">가전·디지털</div><div class="track"><div class="fill" style="width:100%"></div></div><div class="amt">631,900원</div></div>
+    <div class="row"><div class="nm">패션</div><div class="track"><div class="fill" style="width:34%"></div></div><div class="amt">214,610원</div></div>
+    <div class="row"><div class="nm">생활용품</div><div class="track"><div class="fill" style="width:20%"></div></div><div class="amt">126,480원</div></div>
+    <div class="row"><div class="nm">뷰티·건강</div><div class="track"><div class="fill" style="width:16%"></div></div><div class="amt">101,050원</div></div>
+    <div class="row"><div class="nm">식품</div><div class="track"><div class="fill" style="width:12%"></div></div><div class="amt">78,120원</div></div>
+    <div class="row"><div class="nm">문구·취미</div><div class="track"><div class="fill" style="width:5%"></div></div><div class="amt">31,600원</div></div>
+  </div>
+</body>
+</html>
