@@ -27,12 +27,17 @@ export function injectButton(onClick: () => void): void {
   document.body.appendChild(btn);
 }
 
-export function setButtonEnabled(enabled: boolean, label?: string): void {
+/**
+ * 버튼 표시 갱신. 수집 중에는 비활성화하지 않고 "중지" 버튼으로 바꾼다.
+ * (사용자가 언제든 멈출 수 있어야 함 — 실사용 제보 반영)
+ */
+export function setButtonState(label: string, mode: 'idle' | 'stop' = 'idle'): void {
   const btn = document.getElementById(BTN_ID) as HTMLButtonElement | null;
   if (!btn) return;
-  btn.disabled = !enabled;
-  btn.style.opacity = enabled ? '1' : '0.6';
-  if (label) btn.textContent = label;
+  btn.disabled = false;
+  btn.style.opacity = '1';
+  btn.style.background = mode === 'stop' ? '#c0392b' : '#ff5000';
+  btn.textContent = label;
 }
 
 export function showToast(message: string, kind: 'ok' | 'error' = 'ok'): void {

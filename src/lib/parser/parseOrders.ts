@@ -93,6 +93,7 @@ function buildItem(
     // 분리배송 시 쿠팡은 동일 항목을 그룹마다 복제한다. (productId+단가+수량)이 같으면
     // 같은 주문 라인이므로 id가 같아지고, 아래에서 중복으로 걸러진다.
     id: `${ctx.orderId}-${productId}-${unitPriceRaw}-${quantity}`,
+    profile: '', // 수집 단계(content script)에서 활성 프로필로 채움
     orderId: ctx.orderId,
     orderedAt: ctx.orderedAt,
     productName,

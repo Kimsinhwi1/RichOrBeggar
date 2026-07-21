@@ -5,6 +5,7 @@ import type { OrderItem } from '../types';
 function item(over: Partial<OrderItem>): OrderItem {
   return {
     id: 'x',
+    profile: '기본',
     orderId: '111',
     orderedAt: '2026-06-30',
     productName: '상품',

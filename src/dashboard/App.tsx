@@ -10,10 +10,13 @@ import { downloadText } from '../lib/export/download';
 
 const won = (n: number) => n.toLocaleString('ko-KR') + '원';
 
+const ALL = '전체';
+
 export function App() {
   const [items, setItems] = useState<OrderItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [profile, setProfile] = useState(ALL);
 
   const load = () => {
     setLoading(true);
@@ -32,12 +35,21 @@ export function App() {
 
   useEffect(load, []);
 
-  const summaries: OrderSummary[] = summarizeByOrder(items);
+  const profiles = [ALL, ...new Set(items.map((i) => i.profile || '기본'))];
+  const shown = profile === ALL ? items : items.filter((i) => (i.profile || '기본') === profile);
+  const summaries: OrderSummary[] = summarizeByOrder(shown);
 
   return (
     <main style={{ padding: 24, fontFamily: 'system-ui, sans-serif', maxWidth: 960, margin: '0 auto' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         <h1 style={{ fontSize: 22, flex: 1 }}>쿠팡 가계부 대시보드</h1>
+        {profiles.length > 2 && (
+          <select value={profile} onChange={(e) => setProfile(e.target.value)} style={{ padding: '6px 10px', borderRadius: 6, border: '1px solid #ccc' }}>
+            {profiles.map((p) => (
+              <option key={p} value={p}>{p === ALL ? '전체 프로필' : p}</option>
+            ))}
+          </select>
+        )}
         <button onClick={load} style={{ padding: '6px 12px', borderRadius: 6, border: '1px solid #ccc', background: '#fff', cursor: 'pointer' }}>
           새로고침
         </button>
@@ -47,13 +59,18 @@ export function App() {
         <p style={{ color: '#c0392b' }}>불러오기 오류: {error}</p>
       ) : loading ? (
         <p style={{ color: '#555' }}>불러오는 중…</p>
-      ) : items.length === 0 ? (
+      ) : shown.length === 0 ? (
         <p style={{ color: '#555' }}>
           아직 수집된 내역이 없습니다. 쿠팡 주문목록 페이지에서 "내역 가져오기" 버튼을 누른 뒤 새로고침하세요.
         </p>
       ) : (
         <>
-          <Summary itemCount={items.length} orderCount={summaries.length} total={totalAmount(items)} onExport={() => downloadText('coupang-orders.csv', toCsv(items))} />
+          <Summary
+            itemCount={shown.length}
+            orderCount={summaries.length}
+            total={totalAmount(shown)}
+            onExport={() => downloadText(`coupang-orders${profile === ALL ? '' : `-${profile}`}.csv`, toCsv(shown))}
+          />
           <OrderTable summaries={summaries} />
         </>
       )}

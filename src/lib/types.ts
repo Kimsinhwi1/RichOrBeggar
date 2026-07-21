@@ -18,6 +18,8 @@ export type CategorySource = 'rule' | 'ai' | 'user' | null;
 export interface OrderItem {
   /** orderId + productId(또는 index) 조합 */
   id: string;
+  /** 수집 당시의 프로필(쿠팡 계정 구분용). 파싱 시엔 비어 있고 수집 단계에서 채운다. */
+  profile: string;
   orderId: string;
   /** ISO 8601 */
   orderedAt: string;

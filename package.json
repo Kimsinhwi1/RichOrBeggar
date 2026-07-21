@@ -1,6 +1,6 @@
 {
   "name": "coupang-ledger",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "쿠팡 주문내역을 추출해 자동 분류된 지출 리포트로 보여주는 크롬 확장",
   "private": true,
   "type": "module",

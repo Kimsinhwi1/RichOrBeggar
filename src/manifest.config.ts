@@ -4,7 +4,7 @@ import { defineManifest } from '@crxjs/vite-plugin';
 export default defineManifest({
   manifest_version: 3,
   name: '쿠팡 가계부 — 주문내역 엑셀 추출 & 지출 분석',
-  version: '0.1.1',
+  version: '0.1.2',
   description:
     '쿠팡 주문내역을 클릭 한 번으로 추출해 자동 분류된 지출 리포트로. 서버 전송 없음, 내 브라우저에만 저장.',
   icons: {

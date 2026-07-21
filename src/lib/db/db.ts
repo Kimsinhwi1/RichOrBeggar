@@ -18,6 +18,14 @@ export class LedgerDB extends Dexie {
     this.version(2)
       .stores({ orders: 'id, orderId, orderedAt, category', rules: 'keyword, category, priority' })
       .upgrade((tx) => tx.table('orders').clear());
+    // v3: 프로필(계정 구분) 도입. 기존 데이터는 '기본' 프로필로 편입한다.
+    this.version(3)
+      .stores({ orders: 'id, profile, orderId, orderedAt, category', rules: 'keyword, category, priority' })
+      .upgrade((tx) =>
+        tx.table('orders').toCollection().modify((row: OrderItem) => {
+          if (!row.profile) row.profile = '기본';
+        }),
+      );
   }
 }
 
