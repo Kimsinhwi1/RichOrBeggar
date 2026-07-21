@@ -71,6 +71,7 @@ export function App() {
             total={totalAmount(shown)}
             onExport={() => downloadText(`coupang-orders${profile === ALL ? '' : `-${profile}`}.csv`, toCsv(shown))}
           />
+          <CategoryBreakdown items={shown} />
           <OrderTable summaries={summaries} />
         </>
       )}
@@ -97,6 +98,32 @@ function Stat({ label, value }: { label: string; value: string }) {
       <div style={{ fontSize: 12, color: '#888' }}>{label}</div>
       <div style={{ fontSize: 20, fontWeight: 700 }}>{value}</div>
     </div>
+  );
+}
+
+/** DESIGN 3.1: 카테고리별 지출 (규칙 기반 자동 분류 결과). */
+function CategoryBreakdown({ items }: { items: OrderItem[] }) {
+  const byCategory = new Map<string, number>();
+  for (const i of items) {
+    const key = i.category ?? '기타';
+    byCategory.set(key, (byCategory.get(key) ?? 0) + i.totalPrice + i.shippingFee);
+  }
+  const rows = [...byCategory.entries()].sort((a, b) => b[1] - a[1]);
+  const max = rows[0]?.[1] ?? 1;
+
+  return (
+    <section style={{ margin: '0 0 28px' }}>
+      <h2 style={{ fontSize: 16, margin: '0 0 12px' }}>카테고리별 지출</h2>
+      {rows.map(([name, amount]) => (
+        <div key={name} style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 7 }}>
+          <div style={{ width: 92, fontSize: 14, color: '#444' }}>{name}</div>
+          <div style={{ flex: 1, background: '#f2f2f2', borderRadius: 4, height: 18 }}>
+            <div style={{ width: `${(amount / max) * 100}%`, background: '#ff5000', height: '100%', borderRadius: 4 }} />
+          </div>
+          <div style={{ width: 110, textAlign: 'right', fontSize: 14, fontWeight: 600 }}>{won(amount)}</div>
+        </div>
+      ))}
+    </section>
   );
 }
 

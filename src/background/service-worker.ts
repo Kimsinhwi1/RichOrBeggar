@@ -2,7 +2,8 @@
 // Phase 1: content script가 보낸 파싱 결과를 Dexie에 저장.
 
 import { getExtractConfig } from '../lib/selectors/loadSelectors';
-import { saveOrders, countOrders } from '../lib/db/db';
+import { saveOrders, countOrders, db } from '../lib/db/db';
+import { classifyItems } from '../lib/category/classify';
 import type { RequestMsg, SaveOrdersResult } from '../lib/messaging/types';
 
 chrome.runtime.onInstalled.addListener(async () => {
@@ -16,7 +17,9 @@ chrome.runtime.onInstalled.addListener(async () => {
 });
 
 async function handleSave(items: RequestMsg['items']): Promise<SaveOrdersResult> {
-  const saved = await saveOrders(items);
+  // DESIGN 3.1: 규칙 기반 자동 분류(사용자 수정 규칙 우선)
+  const rules = await db.rules.toArray();
+  const saved = await saveOrders(classifyItems(items, rules));
   const total = await countOrders();
   await chrome.storage.local.set({ lastCollectedAt: new Date().toISOString(), lastSaved: saved });
   return { saved, total };
