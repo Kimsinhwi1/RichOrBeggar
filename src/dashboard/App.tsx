@@ -72,7 +72,12 @@ export function App() {
             orderCount={summaries.length}
             total={totalSpent(shown)}
             canceledCount={shown.filter(isCanceled).length}
-            onExport={() => downloadText(`coupang-orders${profile === ALL ? '' : `-${profile}`}.csv`, toCsv(shown))}
+            onExport={() => downloadText(`${fileBase(profile)}.csv`, toCsv(shown))}
+            onExportXlsx={async () => {
+              // SheetJS는 무거우므로 실제로 내려받을 때만 로드(별도 청크).
+              const { downloadXlsx } = await import('../lib/export/toXlsx');
+              downloadXlsx(`${fileBase(profile)}.xlsx`, shown);
+            }}
           />
           <MonthlyChart items={shown} />
           <CategoryBreakdown items={spentItems(shown)} />
@@ -83,7 +88,18 @@ export function App() {
   );
 }
 
-function Summary(props: { itemCount: number; orderCount: number; total: number; canceledCount: number; onExport: () => void }) {
+function fileBase(profile: string): string {
+  return `coupang-orders${profile === ALL ? '' : `-${profile}`}`;
+}
+
+function Summary(props: {
+  itemCount: number;
+  orderCount: number;
+  total: number;
+  canceledCount: number;
+  onExport: () => void;
+  onExportXlsx: () => void | Promise<void>;
+}) {
   return (
     <section style={{ display: 'flex', gap: 24, alignItems: 'center', margin: '16px 0 24px' }}>
       <Stat label="주문 수" value={`${props.orderCount}건`} />
@@ -92,11 +108,20 @@ function Summary(props: { itemCount: number; orderCount: number; total: number; 
         label={props.canceledCount > 0 ? `총 지출 (취소 ${props.canceledCount}건 제외)` : '총 지출'}
         value={won(props.total)}
       />
-      <button onClick={props.onExport} style={{ marginLeft: 'auto', padding: '10px 16px', background: '#ff5000', color: '#fff', border: 'none', borderRadius: 8, fontWeight: 700, cursor: 'pointer' }}>
-        CSV 다운로드
-      </button>
+      <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
+        <button onClick={props.onExport} style={exportBtn('#fff', '#ff5000', '1px solid #ff5000')}>
+          CSV
+        </button>
+        <button onClick={() => void props.onExportXlsx()} style={exportBtn('#ff5000', '#fff', 'none')}>
+          엑셀(XLSX) 다운로드
+        </button>
+      </div>
     </section>
   );
+}
+
+function exportBtn(bg: string, color: string, border: string): React.CSSProperties {
+  return { padding: '10px 16px', background: bg, color, border, borderRadius: 8, fontWeight: 700, cursor: 'pointer' };
 }
 
 function Stat({ label, value }: { label: string; value: string }) {
