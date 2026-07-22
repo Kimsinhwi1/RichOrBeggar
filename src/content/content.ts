@@ -3,8 +3,9 @@
 
 import { collectCurrentPage, isOrderListPage, nextPageUrl, politeWait, MAX_PAGES } from './collect';
 import { getSession, setSession, clearSession, type CollectSession } from './session';
-import { injectButton, setButtonState, showToast } from './ui';
+import { injectButton, setButtonState, showToast, showReviewPrompt } from './ui';
 import { getActiveProfile } from '../lib/profile';
+import { recordCollectionSuccess, markReviewPromptDone, REVIEW_URL } from '../lib/review';
 import type { OrderItem } from '../lib/types';
 import type { SaveOrdersResult } from '../lib/messaging/types';
 
@@ -47,6 +48,7 @@ async function runStep(session: CollectSession): Promise<void> {
     await clearSession();
     const capped = session.pagesDone >= MAX_PAGES ? ` (최대 ${MAX_PAGES}페이지)` : '';
     finish(`수집 완료 · ${session.pagesDone}페이지 ${session.itemsSaved}건 · [${profile}] 누적 ${res.total}건${capped}`);
+    await maybeAskForReview(); // DESIGN 6.1: 성공 직후에만, 3회째 1번
     return;
   }
 
@@ -62,6 +64,16 @@ async function runStep(session: CollectSession): Promise<void> {
     return;
   }
   location.href = nextPageUrl(idx); // 재로드 → 다음 로드에서 이어감
+}
+
+/** 수집 성공을 기록하고, 조건이 맞으면 리뷰 요청을 1회만 띄운다. */
+async function maybeAskForReview(): Promise<void> {
+  if (!(await recordCollectionSuccess())) return;
+  await markReviewPromptDone(); // 노출 시점에 표시 → 두 번 뜨지 않음
+  showReviewPrompt(
+    () => window.open(REVIEW_URL, '_blank', 'noopener'),
+    () => {},
+  );
 }
 
 async function guard(run: () => Promise<void>): Promise<void> {
